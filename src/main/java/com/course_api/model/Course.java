@@ -1,36 +1,30 @@
 package com.course_api.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Topic {
+public class Course {
 
 	@Id
-	/*
-	 * To use string as unique key
-	 * 
-	 * @GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	
-	*/
 	private String id;
 	private String name;
 	private String description;
+	
+	@ManyToOne
+	private Topic topic;
 
-	public Topic() {
+	public Course() {
 		super();
 	}
 
-	public Topic(String id, String name, String description) {
+	public Course(String id, String name, String description, String topicId) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.topic = new Topic(topicId, "", "");
 	}
 	
 	public String getId() {
@@ -55,6 +49,14 @@ public class Topic {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
 
 }
